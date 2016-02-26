@@ -1,0 +1,71 @@
+﻿@model IEnumerable<FSManage.Models.UserInfo>
+@{
+    ViewBag.Title = "User Info Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container userListGroup">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group">
+                <a href="#userList" class="list-group-item active">用户管理</a>
+                <a href="#userSearch" class="list-group-item">用户搜索</a>
+                <a href="" role="button" class="list-group-item" data-toggle="modal" data-target="#myModal">添加用户</a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <section id="userList" class="userDiv">                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model=>model.Id)</th>
+                            <th>@Html.DisplayNameFor(model => model.LoginId)</th>
+                            <th>@Html.DisplayNameFor(model => model.Email)</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var userinfo in Model)
+                        {
+                            <tr>
+                                <th scope="row">@Html.DisplayFor(model => userinfo.Id)</th>
+                                <td>@Html.DisplayFor(model => userinfo.LoginId)</td>
+                                <td>@Html.DisplayFor(model => userinfo.Email)</td>
+                                <td>
+                                    <div role="presentation" class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                            操作<span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/UserInfo/Edit/@userinfo.Id">编辑</a></li>
+                                            <li><a href="/UserInfo/Delete/@userinfo.Id">删除</a></li>
+                                            <li><a href="/UserInfo/Lock/@userinfo.Id">锁定</a></li>
+                                            <li><a href="/UserInfo/Detail/@userinfo.Id">详细信息</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <nav class="pull-right">
+                    @Html.Raw(ViewBag.PageBar)
+                </nav>
+            </section>
+            @Html.Partial("_SearchUser");
+        </div>
+    </div>
+</div>
+@Html.Partial("_AddNewUser")
+@Scripts.Render("~/bundles/jquery")
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(function () {
+        $(".list-group a").click(function () {
+            var href = $(this).attr("href");
+            $(href).fadeIn(600).siblings().hide();
+            $(this).addClass("active").siblings().removeClass("active");
+        })
+    })
+</script>
