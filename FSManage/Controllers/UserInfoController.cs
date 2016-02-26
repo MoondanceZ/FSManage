@@ -112,10 +112,10 @@ namespace FSManage.Controllers
         {
             db.Entry<UserInfo>(userInfo).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Detail", new { id = userInfo.Id });
+            return RedirectToAction("Details", new { id = userInfo.Id });
         }
 
-        public ActionResult Detail(int id)
+        public ActionResult Details(int id)
         {
             var user = db.UserInfo.Where(u => u.Id == id).FirstOrDefault();
             if (user != null)
