@@ -87,6 +87,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -206,19 +207,29 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\CheckAuthority.cs" />
     <Compile Include="Common\CommonBase.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FSManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminAuthority.cs" />
+    <Compile Include="Models\AdminRole.cs" />
+    <Compile Include="Models\AdminUser.cs" />
     <Compile Include="Models\FSManageDbContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductType.cs" />
+    <Compile Include="Models\RoleAuthority.cs" />
+    <Compile Include="Models\RoleType.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Models\UType.cs" />
@@ -231,6 +242,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\fsmanage.css" />
+    <Content Include="Content\Images\ajax-loader.gif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -310,14 +322,20 @@
     <Content Include="Views\UserInfo\Edit.cshtml" />
     <Content Include="Views\UserInfo\_SearchUser.cshtml" />
     <Content Include="Views\FSManage\Login.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\FSManage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-2.2.0.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

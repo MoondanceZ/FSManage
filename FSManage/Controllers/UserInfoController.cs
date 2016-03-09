@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FSManage.Controllers
 {
-    public class UserInfoController : Controller
+    public class UserInfoController : BaseController
     {
         // GET: UserInfo
         FSManageDbContext db = new FSManageDbContext();
@@ -40,7 +40,7 @@ namespace FSManage.Controllers
             ViewBag.PageCount = pageCount;
             ViewBag.PageBar = CommonBase.GetPageBar(pageIndex, pageCount);
             ViewData.Model = userList;
-            ViewBag.UserInfo = (UserInfo)Session["userInfo"];
+            ViewBag.UserInfo = Session["userInfo"];
             //加载用户类型下拉框
             var uTypeList = from u in db.UType
                             orderby u.Id
@@ -110,9 +110,13 @@ namespace FSManage.Controllers
         [HttpPost]
         public ActionResult Edit(UserInfo userInfo)
         {
-            db.Entry<UserInfo>(userInfo).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Details", new { id = userInfo.Id });
+            if (ModelState.IsValid)
+            {
+                db.Entry<UserInfo>(userInfo).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Details", new { id = userInfo.Id });
+            }
+            return View(userInfo);
         }
 
         public ActionResult Details(int id)

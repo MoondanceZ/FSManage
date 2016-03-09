@@ -1,0 +1,75 @@
+﻿@model IEnumerable<FSManage.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PrdNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrdName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Introduction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductDetail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrdStation)
+        </th>        
+        <th>
+            @Html.DisplayNameFor(model => model.OldPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NewPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrdType)
+        </th>        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrdNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrdName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Introduction)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductDetail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrdStation)
+        </td>         
+        <td>
+            @Html.DisplayFor(modelItem => item.OldPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NewPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PrdType)
+        </td>      
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+</table>

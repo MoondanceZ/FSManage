@@ -23,5 +23,12 @@ namespace FSManage.Models
 
         public DbSet<UserInfo> UserInfo { get; set; }
         public DbSet<UType> UType { get; set; }
+        public DbSet<Product> Product { get; set; }
+        //public DbSet<ProductType> ProductType { get; set; }
+        //public DbSet<AdminAuthority> AdminAuthority { get; set; }
+        //public DbSet<AdminRole> AdminRole { get; set; }
+        public DbSet<AdminUser> AdminUser { get; set; }
+        //public DbSet<RoleAuthority> RoleAuthority { get; set; }
+        //public DbSet<RoleType> RoleType { get; set; }
     }
 }

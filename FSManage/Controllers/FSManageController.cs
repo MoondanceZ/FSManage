@@ -9,32 +9,33 @@ namespace FSManage.Controllers
 {
     public class FSManageController : Controller
     {
-        // GET: FSManage
-        public ActionResult Index()
+        public ActionResult Login()
         {
             return View();
         }
 
-        public ActionResult Login()
-        {
-            if (Session["userInfo"] != null)
-                return RedirectToAction("Index", "Home");
-            else
-                return View();
-        }
-
         [HttpPost]
-        public ActionResult CheckLogin(UserInfo userInfo)
+        public ActionResult CheckLogin()
         {
-            FSManageDbContext db = new FSManageDbContext();
-            var user = db.UserInfo.Where(u => u.LoginId == userInfo.LoginId && u.PassWord == userInfo.PassWord).FirstOrDefault();
-            if (user != null)
+            try
             {
-                Session["userInfo"] = user;
-                return RedirectToAction("Index", "Home");
+                string loginId = Request["loginId"] ?? "";
+                string passWord = Request["passWord"] ?? "";
+                FSManageDbContext db = new FSManageDbContext();
+                var user = db.AdminUser.Where(u => u.LoginId == loginId && u.Password == passWord).FirstOrDefault();
+                if (user != null)
+                {
+                    Session["userInfo"] = user;
+                    return Content("ok");
+                }
+                else
+                    return Content("fail");
             }
-            else
-                return Content("<script>alter('登陆失败!')</script>");
+            catch
+            {
+
+            }
+            return null;
         }
 
         public ActionResult Quit()

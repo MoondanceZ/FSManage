@@ -65,13 +65,13 @@
                 <div class="form-group has-success">
                     <label for="nick_name" class="col-sm-2 col-md-2 control-label">用户名</label>
                     <div class="col-sm-10 col-md-10">
-                        <input type="text" class="form-control" name="LoginId" placeholder="用户名" value="">
+                        <input type="text" class="form-control" id="LoginId" name="LoginId" placeholder="用户名" value="">
                     </div>
                 </div>
                 <div class="form-group has-success">
                     <label for="user_password" class="col-sm-2 col-md-2 control-label">密码</label>
                     <div class="col-sm-10 col-md-10">
-                        <input type="password" class="form-control" name="PassWord" placeholder="密码">
+                        <input type="password" class="form-control" id="PassWord" name="PassWord" placeholder="密码">
                     </div>
                 </div>
                 <div class="form-group">
@@ -80,8 +80,9 @@
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-10 col-md-10">
                         <input type="hidden" name="url" value="/admin" />
-                        <button class="btn btn-info" data-loading-text="正在登录..." type="submit">登 录</button>
                         <button class="btn btn-info" type="reset">清 空</button>
+                        <button class="btn btn-info" data-loading-text="正在登录..." type="button">登 录</button>
+                        <img id="loadImg" src="~/Content/Images/ajax-loader.gif" style="display:none" />
                     </div>
                 </div>
             </form>
@@ -89,3 +90,34 @@
     </div>
 </body>
 </html>
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script>
+    $(function () {
+        $("button[type='button']").click(okClick);
+
+        function okClick(){
+            $("#loadImg").show();
+            var loginId = $("#LoginId").val();
+            var passWord = $("#PassWord").val();
+            $.post("/FSManage/CheckLogin", { "loginId": loginId, "passWord": passWord }, function (data) {
+                if (data == "ok") {
+                    location.href = "/Home/Index";
+                } else {
+                    alert("登陆失败");
+                    $("#loadImg").hide();
+                }
+            })
+        }
+
+        $("button[type='reset']").click(function () {
+            $("#loadImg").hide();
+        })
+
+        $(window).keydown(function (e) {
+            if (e.which == 13) {
+                okClick();
+            }
+        })        
+    })
+</script>

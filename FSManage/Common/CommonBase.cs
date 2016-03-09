@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,11 +51,11 @@ namespace FSManage.Common
             sb.Append(" <ul class='pagination'>");
             if (pageIndex > 1)
             {
-                sb.AppendFormat("<li><a href='#' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>", pageIndex - 1);
+                sb.AppendFormat("<li><a href='?pageIndex={0}' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>", pageIndex - 1);
             }
             else if (pageIndex == 1)
             {
-                sb.AppendFormat("<li class='disabled'><a href='#' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>", pageIndex - 1);
+                sb.AppendFormat("<li class='disabled'><a href='?pageIndex={0}' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>", 1);
             }
             for (int i = startPage; i <= endPage; i++)
             {
@@ -79,6 +80,24 @@ namespace FSManage.Common
             return sb.ToString();
         }
 
+        /// <summary>
+        /// MD5加密
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string GetStringMd5(string str)
+        {
+            MD5 md5 = MD5.Create();
+            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(str);
+            byte[] md5Buffer = md5.ComputeHash(buffer);
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in md5Buffer)
+            {
+                sb.Append(b.ToString("x2"));
+            }
+            return sb.ToString();
+
+        }
 
     }
 }
