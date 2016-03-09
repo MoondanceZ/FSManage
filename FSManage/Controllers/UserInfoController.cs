@@ -3,6 +3,7 @@ using FSManage.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -94,8 +95,12 @@ namespace FSManage.Controllers
             }
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var user = db.UserInfo.Where(u => u.Id == id).FirstOrDefault();
             if (user != null)
             {
@@ -103,7 +108,7 @@ namespace FSManage.Controllers
             }
             else
             {
-                return Content("查无次用户");
+                return HttpNotFound();
             }
         }
 
@@ -119,8 +124,12 @@ namespace FSManage.Controllers
             return View(userInfo);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
+            if(id==null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var user = db.UserInfo.Where(u => u.Id == id).FirstOrDefault();
             if (user != null)
             {
@@ -128,7 +137,7 @@ namespace FSManage.Controllers
             }
             else
             {
-                return Content("查无此用户!");
+                return HttpNotFound();
             }
         }
     }
